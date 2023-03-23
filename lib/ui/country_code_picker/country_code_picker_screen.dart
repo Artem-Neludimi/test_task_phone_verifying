@@ -1,9 +1,10 @@
 import 'package:country_calling_code_picker/country.dart';
 import 'package:country_calling_code_picker/country_code_picker.dart';
 import 'package:country_calling_code_picker/functions.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:test_task_phone_verifying/constants.dart';
 import 'package:test_task_phone_verifying/ui/custom_container/custom_container.dart';
@@ -19,7 +20,8 @@ class CountryPickerScreen extends StatefulWidget {
 
 class _CountryPickerScreenState extends State<CountryPickerScreen> {
   List<Country>? _filteredList;
-
+  Position? _currentPosition;
+  String? _currentAddress;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,6 +157,57 @@ class _CountryPickerScreenState extends State<CountryPickerScreen> {
           ),
         ],
       ),
+      floatingActionButton: Container(
+        decoration: BoxDecoration(
+          color: const Color(colorMain),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(16),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        child: IconButton(
+          icon: const Icon(Icons.location_on),
+          onPressed: () {
+            _getCurrentPlace().then((value) {
+              if (value.length == 2) {
+                Provider.of<CountryCodeProvider>(
+                  context,
+                  listen: false,
+                ).changeCountry(value);
+                Navigator.of(context).pop();
+              }
+            });
+          },
+        ),
+      ),
     );
+  }
+
+  Future<String> _getCurrentPlace() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) return Future.error('error');
+    var permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('error');
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('error');
+    }
+    var position = await Geolocator.getCurrentPosition();
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    Placemark place = placemarks[0];
+
+    return place.isoCountryCode!;
   }
 }

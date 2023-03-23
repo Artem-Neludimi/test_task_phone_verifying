@@ -1,0 +1,12 @@
+{
+    "helloWorld": "Hello World!",
+    "@helloWorld": {
+      "description": "The conventional newborn programmer greeting"
+    },
+    "homeAppBar": "Get Started",
+    "countryCodeAppBar": "Country code",
+    "phoneNumber": "Your phone number",
+    "textFieldSearch": "Search",
+    "phoneIsVerified": "Your phone is verified",
+    "ok": "Ok"
+}

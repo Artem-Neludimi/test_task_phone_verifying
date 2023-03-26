@@ -9,7 +9,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:test_task_phone_verifying/constants.dart';
 import 'package:test_task_phone_verifying/ui/custom_container/custom_container.dart';
-import 'package:test_task_phone_verifying/ui/provider/contry_code_provider.dart';
+import 'package:test_task_phone_verifying/ui/provider/country_code_provider.dart';
 import '../country_code_picker/country_code_picker_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -160,7 +160,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                         ],
                       );
-                      ;
                     },
                   );
                 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
-import 'package:test_task_phone_verifying/ui/provider/contry_code_provider.dart';
+import 'package:test_task_phone_verifying/ui/provider/country_code_provider.dart';
 import 'constants.dart';
 import 'ui/home/home_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

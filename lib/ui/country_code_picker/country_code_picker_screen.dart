@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:test_task_phone_verifying/constants.dart';
 import 'package:test_task_phone_verifying/ui/custom_container/custom_container.dart';
 
-import '../provider/contry_code_provider.dart';
+import '../provider/country_code_provider.dart';
 
 class CountryPickerScreen extends StatefulWidget {
   const CountryPickerScreen({super.key});
@@ -20,8 +20,6 @@ class CountryPickerScreen extends StatefulWidget {
 
 class _CountryPickerScreenState extends State<CountryPickerScreen> {
   List<Country>? _filteredList;
-  Position? _currentPosition;
-  String? _currentAddress;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
